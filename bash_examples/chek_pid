@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# ###################
+# This script can be added to Bash scripts
+# It is creating a PID File for a runing script
+#  Then checks if the pid in the pid file belongs to a running script
+# if so, it will not run tyhe currnet script session
+# ###################
+
+LOG_FILE="/var/log/csi_cm_query_update.log"
+ENV_FILE="/etc/csi/csi-env/conf/env.properties"
+SCRIPT_NAME=$(basename -s .sh $0)
+PID_FILE="/var/run/${SCRIPT_NAME}.pid"
+DATE=$(date)
+CURRENT_PID=$$
+
+# if the file doesn't exist create it
+FIRST_RUN="no"
+[[ ! -e ${PID_FILE} ]] && echo $$ > ${PID_FILE} && FIRST_RUN="yes"
+
+PID=$(cat $PID_FILE)
+
+pgrep -F ${PID_FILE} > /dev/null 2>&1
+
+if [[ $? -eq 0 && "$FIRST_RUN" == "no" ]]
+then
+    echo "${DATE} - Current script PID is ${CURRENT_PID}, file pid is $PID" >> ${LOG_FILE}
+    echo "${DATE} - Script ${SCRIPT_NAME} with PID=${PID} is already running, Exit..." >> ${LOG_FILE}
+   exit 0
+fi
+
+echo $$ > ${PID_FILE}
+
+echo "${DATE} - Script ${SCRIPT_NAME} with PID=${CURRENT_PID} is not running, continue" >> ${LOG_FILE}
