@@ -4,6 +4,13 @@ import datetime
 # Configure logging
 logging.basicConfig(filename='/tmp/cronjob.log', level=logging.INFO)
 
+# logger = logging.getLogger(__name__)
+# logger.setLevel(logging.DEBUG)
+# formatter = logging.Formatter('%(message)s')
+# stream_handler = logging.StreamHandler()
+# stream_handler.setFormatter(formatter)
+# logger.addHandler(stream_handler)
+
 def log_message():
     current_time = datetime.datetime.now()
     message = f"CronJob executed at {current_time}"
@@ -12,3 +19,6 @@ def log_message():
 
 if __name__ == "_main_":
     log_message()
+
+
+

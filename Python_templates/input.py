@@ -2,7 +2,7 @@ __author__ = 'yidgar'
 import string
 
 ## https://pyformat.info/ - general page for formatting of strings
-name = raw_input ("whats your name ? ")  ## input that will insert as a string
+name = input ("whats your name ? ")  ## input that will insert as a string
 nameCaps = string.capwords(name) ## 1st word as caps
 numberOfBrothers = input ("How many brothers you have ? ")
 numberOfSisters = input ("How many sisters you have ? ")

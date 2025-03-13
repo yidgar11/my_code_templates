@@ -1,48 +1,22 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: demo-pv
+  name: redis-pv
 spec:
+  capacity:
+    storage: 2Gi
   accessModes:
     - ReadWriteOnce
-  capacity:
-    storage: 1Gi
+  persistentVolumeReclaimPolicy: Retain
+  #the PV is not automatically deleted when the PVC is removed
+
   storageClassName: standard
-  hostPath:  ### Local Path
-    path: /tmp/demo-pv
+  # Automatically creates PersistentVolumes (PVs) when a PersistentVolumeClaim (PVC) is made
 
----
-# Example of AWS
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: efs-pv
-spec:
-  capacity:
-    storage: 5Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
-  storageClassName: ""
-  persistentVolumeReclaimPolicy: Retain
-  csi:
-    driver: efs.csi.aws.com
-    volumeHandle: fs-073d77123471b2917
+  #storageClassName: manual
+  # Requires administrators to manually create PVs before they can be bound to PVCs. The PVs must explicitly match the `storageClassName` of the PVC
 
----
-# Example of google cloud persistant volume
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: gke-pv
-spec:
-  capacity:
-    storage: 50Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: ""
-  csi:
-    driver: pd.csi.storage.gke.io
-    volumeHandle: projects/YOUR_PROJECT_ID/zones/us-central1-a/disks/gke-pv
+  hostPath:
+    path: /mnt/data/redis # on the minikube host
+
+

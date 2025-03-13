@@ -3,6 +3,8 @@ __author__ = 'yidgar'
 # https://www.w3schools.com/python/python_tuples.asp
 
 ## tuple is an immutable list
+# A tuple is an ordered collection of elements that can contain various types of data,
+# including numbers, strings, or other objects.
 
 # list:
 l = [1 ,2 , 3 ]

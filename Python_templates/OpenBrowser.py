@@ -3,7 +3,7 @@ import webbrowser
 import sys
 import time
 import threading
-
+from subprocess import Popen
 
 sites=['http://ynet.co.il','http://mako.co.il']
 
